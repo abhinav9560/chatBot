@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chat Room</title>
+  <link rel="stylesheet" type="text/css" href="/css/home.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/home.css">
+</head>
+
+<body>
+
+  {{>header}}
+  <div class="body-container">
+    <div class="left-container">
+      <p>start new conversation</p>
+    </div>
+    <div class="right-container">
+      <ul class="list-container">
+        {{#each data}}
+        <li>
+          <div class="msg-box">
+            <h4 class="role">{{role}}</h4>
+            <p class="msg">{{content}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+        <form action="/chatbot/sendMsg" method="POST" class="inbox-container">
+          <input class="input" name="msg" placeholder="Message Chat GPT" />
+          <button type='submit' class="sendBtn">Send</button>
+        </form>
+    </div>
+  </div>
+  {{>footer}}
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="home.js"></script>
+  <script src="https://kit.fontawesome.com/58df015486.js" crossorigin="anonymous"></script>
+  <!-- Rest of the website content goes here -->
+</body>
+
+</html>

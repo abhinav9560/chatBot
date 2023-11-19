@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="form-container">
+        <form action="/auth/signup" method="POST" id="my_form">
+            <h2>Sign Up</h2>
+            <input type="email" name="email" placeholder="Enter e-mail" class="input-field">
+            <input type="password" name="password" placeholder="Enter password" class="input-field">
+            <button type="submit" class="submit">Create account</button>
+        </form>
+        {{#if messages.error}}
+        <p>{{messages.error}}</p>
+        {{/if}}
+    </div>
+</body>
+
+</html>
