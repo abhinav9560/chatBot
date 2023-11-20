@@ -5,6 +5,11 @@ window.addEventListener("load", (event) => {
 
 var button = document.getElementById('send-btn');
 button.onclick = function () {
+    button.innerText = "";
+    button.disabled = true;
+    var i = document.createElement("i");
+    i.setAttribute("class", "fa fa-spinner fa-spin");
+    button.appendChild(i)
     var text = document.getElementById('input-msg').value;
 
     var li = document.createElement("li");
@@ -31,6 +36,10 @@ button.onclick = function () {
 };
 const sendMsg = async (text) => {
     let res = await await axios.post('/chatbot/sendMsg', { msg: text });
+    button.removeChild(button.children[0]);
+    button.innerText = "Send";
+    button.disabled = false;
+
     var li = document.createElement("li");
     var div = document.createElement("div");
     div.setAttribute("class", "role")
