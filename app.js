@@ -21,7 +21,7 @@ app.use('/auth', loginRoute)
 
 const startServer = async () => {
     try {
-        await ConnectDB('mongodb+srv://abhinavanand0411:User123@issuetracker.ym6ulwy.mongodb.net/').then(() => {
+        await ConnectDB(process.env.MONGO_DB).then(() => {
             console.log("DB connection successfull");
         })
         app.listen(3001, () => {

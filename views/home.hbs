@@ -16,7 +16,7 @@
       <p>start new conversation</p>
     </div>
     <div class="right-container">
-      <ul class="list-container">
+      <ul class="list-container" id="chat-list">
         {{#each data}}
         <li>
           <div class="msg-box">
@@ -26,10 +26,12 @@
         </li>
         {{/each}}
       </ul>
-        <form action="/chatbot/sendMsg" method="POST" class="inbox-container">
-          <input class="input" name="msg" placeholder="Message Chat GPT" />
-          <button type='submit' class="sendBtn">Send</button>
-        </form>
+      <div class="inbox-container">
+        {{!-- <form action="/chatbot/sendMsg" method="POST" class="inbox-container"> --}}
+          <input class="input" name="msg" id="input-msg" placeholder="Message Chat GPT" />
+          <button type='button' id="send-btn" class="sendBtn">Send</button>
+        {{!-- </form> --}}
+      </div>
     </div>
   </div>
   {{>footer}}

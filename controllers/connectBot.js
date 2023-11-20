@@ -39,15 +39,14 @@ const connectBot = async (req, res) => {
                 content: response.choices[0].message.content,
                 userId: userId
             })
-            return res.redirect('/chatbot')
+            // return res.redirect('/chatbot')
+            return res.status(200).json(response.choices[0].message.content)
         }else{
             return res.redirect('/chatbot/error')
         }
     } catch (error) {
         console.log(error, "CONNNECTION ERROR");
-        return res.status(400).json({
-            error: error
-        })
+        return  res.redirect('/chatbot/error')
     }
 }
 const getConversation = async (req, res) => {
