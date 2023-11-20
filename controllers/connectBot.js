@@ -21,7 +21,7 @@ const connectBot = async (req, res) => {
             console.log(err, " EOORR IN DATA BASEE");
             return false;
         })
-        let conversation =  await Msg.find({ "userId": userId,}).select('-_id').select('-userId').select('-__v')
+        let conversation = await Msg.find({ "userId": userId, }).select('-_id').select('-userId').select('-__v')
         if (saveMsg) {
             console.log(conversation, " CHAT BOT");
             const response = await openai.chat.completions.create({
@@ -41,12 +41,12 @@ const connectBot = async (req, res) => {
             })
             // return res.redirect('/chatbot')
             return res.status(200).json(response.choices[0].message.content)
-        }else{
+        } else {
             return res.redirect('/chatbot/error')
         }
     } catch (error) {
         console.log(error, "CONNNECTION ERROR");
-        return  res.redirect('/chatbot/error')
+        return res.redirect('/chatbot/error')
     }
 }
 const getConversation = async (req, res) => {
@@ -54,13 +54,6 @@ const getConversation = async (req, res) => {
         const data = await Msg.find({ conversationId: req.body.covId })
         res.status(200).send(data)
         console.log("data is", data);
-        // if (data.password === req.body.password) {
-        //     res.redirect('/')
-        // } else {
-        //     res.render('login', {
-        //         error: "password incorrect"
-        //     })
-        // }
     } catch (error) {
         res.render('login', {
             error: "user not found"
@@ -68,4 +61,15 @@ const getConversation = async (req, res) => {
     }
 }
 
-module.exports = { connectBot, getConversation }
+const clearMsgs = async (req, res) => {
+    const userId = req.cookies.userId;
+    Msg.deleteMany({ "userId": userId }).then((response) => {
+        console.log(response,"DB Res");
+        return res.redirect('/chatbot')
+    }).catch(err => {
+        console.log(err,"DB ERRRR");
+        return res.redirect('/chatbot/error')
+    })
+}
+
+module.exports = { connectBot, getConversation, clearMsgs }

@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express.Router();
-const {connectBot,getConversation} = require('../controllers/connectBot')
+const {connectBot,getConversation,clearMsgs} = require('../controllers/connectBot')
 const Msg = require("../database/models/msgSchema");
 const { checkAuth } = require('../controllers/authcontroller');
 
@@ -14,6 +14,8 @@ routes.get("/",checkAuth,async (req, res) => {
 routes.get("/getMsg",getConversation)
 
 routes.post("/sendMsg",connectBot);
+
+routes.get("/clearMsgs",clearMsgs)
 
 routes.get("/error",async (req, res) => {
     res.render("errorhandle")
