@@ -5,11 +5,16 @@ const createUser = async (req, res) => {
     if (!email || !password) {
         res.status(400)
     } else {
-        await User.create({
-            email: email,
-            password: password,
-        })
-        res.redirect('auth/login')
+        const userData = await User.findOne({ email: req.body.email })
+        if (!userData) {
+            await User.create({
+                email: email,
+                password: password,
+            })
+            res.redirect('/auth/login')
+        }else{
+            res.redirect('/chatbot/error')
+        }
     }
 }
 
@@ -17,7 +22,7 @@ const checkUser = async (req, res) => {
     try {
         const userData = await User.findOne({ email: req.body.email })
         if (userData.password === req.body.password) {
-            res.cookie('userId',userData._id, { httpOnly: true })
+            res.cookie('userId', userData._id, { httpOnly: true })
             res.redirect('/chatbot')
         } else {
             res.render('login', {
